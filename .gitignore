@@ -1,0 +1,3 @@
+*.o
+calculus
+parse.c
