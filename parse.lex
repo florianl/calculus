@@ -8,7 +8,7 @@ DIGIT_OCT       [0-7]
 DIGIT_DIGIT     [0-9]
 DIGIT_HEX       [0-9a-fA-F]
 SIGN_BIN        [bB]
-SIGN_OCT        [cC]
+SIGN_OCT        [oO]
 SIGN_HEX        [xX]
 NUM_BIN         {SIGN_BIN}{DIGIT_BIN}+
 NUM_OCT         {SIGN_OCT}{DIGIT_OCT}+
@@ -67,15 +67,18 @@ int parse (unsigned int flags)
                         {
                                 case _CALCULUS_NUM_BIN:
                                         _d ("bin\n");
+                                        _d ("%d\n", bin2dez(calculus_text));
                                         break;
                                 case _CALCULUS_NUM_OCT:
                                         _d ("oct\n");
+                                        _d ("%d\n", uni2dez(calculus_text, 8));
                                         break;
                                 case _CALCULUS_NUM_DIG:
                                         _d ("dig\n");
                                         break;
                                 case _CALCULUS_NUM_HEX:
                                         _d ("hex\n");
+                                        _d ("%d\n", hex2dez(calculus_text));
                                         break;
                                 default:
                                         _d ("unkown\n");

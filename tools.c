@@ -54,3 +54,77 @@ void *stackPop (stack_t **s)
         free (item);
         return value;
 }
+
+int bin2dez(char *t)
+{
+        int             value = 0;
+        int             power = 1;
+        int             len = strlen(t);
+        int             i = 0;
+
+        if (len<2)
+                return -1;
+
+        for (i=len-1; i>=1; i--)
+        {
+                if (t[i] == '1')
+                {
+                        value += power;
+                }
+                power <<= 1;
+        }
+
+        return value;
+}
+
+
+int uni2dez(char *t, int multi)
+{
+        int             value = 0;
+        int             power = 1;
+        int             len = strlen(t);
+        int             i = 0;
+
+        if (len<2)
+                return -1;
+
+        for (i=len-1; i>=1; i--)
+        {
+                value += (t[i] - 48) * power;
+                power *= multi;
+        }
+
+        return value;
+}
+
+int hex2dez(char *t)
+{
+        int             value = 0;
+        int             power = 1;
+        int             len = strlen(t);
+        int             i = 0;
+        int             element = 0;
+
+
+        if (len<2)
+                return -1;
+
+        for (i=len-1; i>=1; i--)
+        {
+                if ( t[i] <= 57 && t[i] >= 48)
+                        /*      numbers                 */
+                        element = t[i] - 48;
+                else if ( t[i] <= 70 && t[i] >= 65)
+                        /*      uppercase letters       */
+                        element = t[i] - 55;
+                else if ( t[i] <= 102 && t[i] >= 97)
+                        /*      lowercase letters       */
+                        element = t[i] - 87;
+                else
+                        break;
+                value += element * power;
+                power *= 16;
+        }
+
+        return value;
+}

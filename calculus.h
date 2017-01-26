@@ -41,3 +41,6 @@ int stackFree (stack_t **s);
 void *stackPop (stack_t **s);
 int stackPush (stack_t **s, void *value, unsigned int type);
 unsigned int stackTop (stack_t *s);
+
+int bin2dez(char *t);
+int uni2dez(char *t, int multi);
