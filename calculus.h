@@ -23,10 +23,10 @@
 #define CALCULUS_DEBUG
 
 #ifdef CALCULUS_DEBUG
-        #define _d (...)         {fprintf (stderr, "%s():%d\t", __func__, __LINE__); \
+        #define _d(...)         {fprintf (stderr, "%s():%d\t", __func__, __LINE__); \
                                         fprintf (stderr, __VA_ARGS__);}
 #else
-        #define _d (...)         {do { } while (0);}
+        #define _d(...)         {do { } while (0);}
 #endif
 
 typedef struct stack {
@@ -36,3 +36,8 @@ typedef struct stack {
 } stack_t;
 
 int parse (unsigned int flags);
+
+int stackFree (stack_t **s);
+void *stackPop (stack_t **s);
+int stackPush (stack_t **s, void *value, unsigned int type);
+unsigned int stackTop (stack_t *s);

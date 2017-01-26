@@ -2,7 +2,7 @@
         #include "calculus.h"
 %}
 TXT_GCD         [Gg][Cc][Dd]
-TXT_LCM         [Ll][Cc][MM]
+TXT_LCM         [Ll][Cc][Mm]
 DIGIT_BIN       [01]
 DIGIT_OCT       [0-7]
 DIGIT_DIGIT     [0-9]
@@ -30,7 +30,6 @@ WHITESPACE      [ \t]*
 {WHITESPACE}            /*      Ignore whitespaces              */
 [\n]                    {return -1;}
 .                       /*      Eat up unrecognized patterns    */
-[\0]                    {fprintf(stderr, "EoW\n");}
 %%
 
 int parse (unsigned int flags)
@@ -56,8 +55,11 @@ int parse (unsigned int flags)
                 } else if ((type & _CALCULUS_FUNC_MASK) == type)
                 {
                         _d ("\n");
+                        stackPush (&operators, NULL, type);
                 } else if ((type & _CALCULUS_ORG_MASK) == type)
                 {
+                        if (type == _CALCULUS_BRACE_OPEN)
+                                stackPush (&operators, NULL, type);
                         _d ("\n");
                 } else if ((type & _CALCULUS_NUM_MASK) == type)
                 {
@@ -86,6 +88,8 @@ int parse (unsigned int flags)
                         break;
                 }
         }
+
+        stackFree (&operators);
 
         return 0;
 }
