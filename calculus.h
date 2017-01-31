@@ -3,6 +3,12 @@
 #include <errno.h>
 #include <string.h>
 
+#define _CALCULUS_OP_MASK               0xFF01
+#define _CALCULUS_ADD                   0x0101
+#define _CALCULUS_SUB                   0x0201
+#define _CALCULUS_MUL                   0x0401
+#define _CALCULUS_DIV                   0x0801
+#define _CALCULUS_POW                   0x1001
 
 #define _CALCULUS_ORG_MASK              0xFF02
 #define _CALCULUS_BRACE_OPEN            0x0102
@@ -19,6 +25,9 @@
 #define _CALCULUS_NUM_DIG               0x0408
 #define _CALCULUS_NUM_HEX               0x0808
 
+#define _CALCULUS_TYPE_MASK             0xFF10
+#define _CALCULUS_INT                   0x0110
+#define _CALCULUS_DOUBLE                0x0210
 
 #define CALCULUS_DEBUG
 
@@ -43,4 +52,5 @@ int stackPush (stack_t **s, void *value, unsigned int type);
 unsigned int stackTop (stack_t *s);
 
 int bin2dez(char *t);
+int hex2dez(char *t);
 int uni2dez(char *t, int multi);

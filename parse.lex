@@ -18,6 +18,8 @@ WHITESPACE      [ \t]*
 %option prefix="calculus_"
 %option warn
 %option noyywrap
+%option nounput
+%option noinput
 %%
 {TXT_GCD}               {return _CALCULUS_FUNC_GCD;}
 {TXT_LCM}               {return _CALCULUS_FUNC_LCM;}
@@ -27,6 +29,11 @@ WHITESPACE      [ \t]*
 {NUM_HEX}               {return _CALCULUS_NUM_HEX;}
 ("("|"["|"{")?          {return _CALCULUS_BRACE_OPEN;}
 (")"|"]"|"}")?          {return _CALCULUS_BRACE_CLOSE;}
+("+")?                  {return _CALCULUS_ADD;}
+("-")?                  {return _CALCULUS_SUB;}
+("*")?                  {return _CALCULUS_MUL;}
+("/")?                  {return _CALCULUS_DIV;}
+("^")?                  {return _CALCULUS_POW;}
 {WHITESPACE}            /*      Ignore whitespaces              */
 [\n]                    {return -1;}
 .                       /*      Eat up unrecognized patterns    */
@@ -37,6 +44,9 @@ int parse (unsigned int flags)
         stack_t         *values = NULL;
         stack_t         *operators = NULL;
         int             type = -1;
+        int             inum = 0;
+        void            *mem;
+        int             *iptr;
         _d("\n");
 
         values = calloc (1, sizeof(stack_t));
@@ -56,6 +66,10 @@ int parse (unsigned int flags)
                 {
                         _d ("\n");
                         stackPush (&operators, NULL, type);
+                } else if ((type & _CALCULUS_OP_MASK) == type)
+                {
+                        _d ("\n");
+                        stackPush (&operators, NULL, type);
                 } else if ((type & _CALCULUS_ORG_MASK) == type)
                 {
                         if (type == _CALCULUS_BRACE_OPEN)
@@ -67,24 +81,39 @@ int parse (unsigned int flags)
                         {
                                 case _CALCULUS_NUM_BIN:
                                         _d ("bin\n");
-                                        _d ("%d\n", bin2dez(calculus_text));
+                                        type = _CALCULUS_INT;
+                                        inum = bin2dez(calculus_text);
                                         break;
                                 case _CALCULUS_NUM_OCT:
                                         _d ("oct\n");
-                                        _d ("%d\n", uni2dez(calculus_text, 8));
+                                        type = _CALCULUS_INT;
+                                        inum = uni2dez(calculus_text, 8);
                                         break;
                                 case _CALCULUS_NUM_DIG:
                                         _d ("dig\n");
+                                        type = _CALCULUS_INT;
+                                        inum = atoi(calculus_text);
                                         break;
                                 case _CALCULUS_NUM_HEX:
                                         _d ("hex\n");
-                                        _d ("%d\n", hex2dez(calculus_text));
+                                        type = _CALCULUS_INT;
+                                        inum = hex2dez(calculus_text);
                                         break;
                                 default:
                                         _d ("unkown\n");
+                                        type = 0xBADC0DE;
+                                        inum = -1;
                                         break;
                         }
-                
+                        if ((type & _CALCULUS_INT) == type)
+                        {
+                                mem = calloc(1, sizeof(int));
+                                iptr = (int*) mem;
+                                *iptr = inum;
+                        } else {
+                                break;
+                        }
+                        stackPush (&values, mem, type);
                 } else {
                         _d ("\n");
                         fprintf (stderr, "Unknown input [%d]: %s\n", type, calculus_text);
@@ -93,6 +122,7 @@ int parse (unsigned int flags)
         }
 
         stackFree (&operators);
+        stackFree (&values);
 
         return 0;
 }
