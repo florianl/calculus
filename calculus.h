@@ -24,6 +24,7 @@
 #define _CALCULUS_NUM_OCT               0x0208
 #define _CALCULUS_NUM_DIG               0x0408
 #define _CALCULUS_NUM_HEX               0x0808
+#define _CALCULUS_NUM_REAL              0x1008
 
 #define _CALCULUS_TYPE_MASK             0xFF10
 #define _CALCULUS_INT                   0x0110

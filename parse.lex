@@ -22,20 +22,21 @@ WHITESPACE      [ \t]*
 %option nounput
 %option noinput
 %%
-{TXT_GCD}               {return _CALCULUS_FUNC_GCD;}
-{TXT_LCM}               {return _CALCULUS_FUNC_LCM;}
-{CONST_PI}              {return _CALCULUS_CONST_PI;}
-{NUM_BIN}               {return _CALCULUS_NUM_BIN;}
-{NUM_OCT}               {return _CALCULUS_NUM_OCT;}
-{NUM_DIG}               {return _CALCULUS_NUM_DIG;}
-{NUM_HEX}               {return _CALCULUS_NUM_HEX;}
-("("|"["|"{")?          {return _CALCULUS_BRACE_OPEN;}
-(")"|"]"|"}")?          {return _CALCULUS_BRACE_CLOSE;}
-("+")?                  {return _CALCULUS_ADD;}
-("-")?                  {return _CALCULUS_SUB;}
-("*")?                  {return _CALCULUS_MUL;}
-("/")?                  {return _CALCULUS_DIV;}
-("^")?                  {return _CALCULUS_POW;}
+{TXT_GCD}                       {return _CALCULUS_FUNC_GCD;}
+{TXT_LCM}                       {return _CALCULUS_FUNC_LCM;}
+{CONST_PI}                      {return _CALCULUS_CONST_PI;}
+{NUM_DIG}(","|"."){NUM_DIG}?    {return _CALCULUS_NUM_REAL;}
+{NUM_BIN}                       {return _CALCULUS_NUM_BIN;}
+{NUM_OCT}                       {return _CALCULUS_NUM_OCT;}
+{NUM_DIG}                       {return _CALCULUS_NUM_DIG;}
+{NUM_HEX}                       {return _CALCULUS_NUM_HEX;}
+("("|"["|"{")?                  {return _CALCULUS_BRACE_OPEN;}
+(")"|"]"|"}")?                  {return _CALCULUS_BRACE_CLOSE;}
+("+")?                          {return _CALCULUS_ADD;}
+("-")?                          {return _CALCULUS_SUB;}
+("*")?                          {return _CALCULUS_MUL;}
+("/")?                          {return _CALCULUS_DIV;}
+("^")?                          {return _CALCULUS_POW;}
 {WHITESPACE}            /*      Ignore whitespaces              */
 [\n]                    {return -1;}
 .                       /*      Eat up unrecognized patterns    */
@@ -47,8 +48,9 @@ int parse (unsigned int flags)
         stack_t         *operators = NULL;
         int             type = -1;
         int             inum = 0;
+        double          dnum = 0.0;
         void            *mem;
-        int             *iptr;
+        double          *ptr;
         _d("\n");
 
         values = calloc (1, sizeof(stack_t));
@@ -105,6 +107,12 @@ int parse (unsigned int flags)
                                         type = _CALCULUS_INT;
                                         inum = hex2dez(calculus_text);
                                         break;
+                                case _CALCULUS_NUM_REAL:
+                                        _d ("real\n");
+                                        type = _CALCULUS_DOUBLE;
+                                        dnum = strtod(calculus_text, NULL);
+                                        _d ("%f\n", dnum);
+                                        break;
                                 default:
                                         _d ("unkown\n");
                                         type = 0xBADC0DE;
@@ -113,10 +121,17 @@ int parse (unsigned int flags)
                         }
                         if ((type & _CALCULUS_INT) == type)
                         {
-                                mem = calloc(1, sizeof(int));
-                                iptr = (int*) mem;
-                                *iptr = inum;
+                                mem = (void*) calloc(1, sizeof(double));
+                                ptr = (double*) mem;
+                                *ptr = (inum * 1.0);
+                                type = _CALCULUS_DOUBLE;
+                        } else if ((type & _CALCULUS_DOUBLE) == type)
+                        {
+                                mem = (void*) calloc(1, sizeof(double));
+                                ptr = (double*) mem;
+                                *ptr = dnum;
                         } else {
+                                _d ("\n");
                                 break;
                         }
                         stackPush (&values, mem, type);
