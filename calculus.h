@@ -29,6 +29,9 @@
 #define _CALCULUS_INT                   0x0110
 #define _CALCULUS_DOUBLE                0x0210
 
+#define _CALCULUS_CONST_MASK            0xFF20
+#define _CALCULUS_CONST_PI              0x0120
+
 #define CALCULUS_DEBUG
 
 #ifdef CALCULUS_DEBUG

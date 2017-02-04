@@ -3,6 +3,7 @@
 %}
 TXT_GCD         [Gg][Cc][Dd]
 TXT_LCM         [Ll][Cc][Mm]
+CONST_PI        [Pp][Ii]
 DIGIT_BIN       [01]
 DIGIT_OCT       [0-7]
 DIGIT_DIGIT     [0-9]
@@ -23,6 +24,7 @@ WHITESPACE      [ \t]*
 %%
 {TXT_GCD}               {return _CALCULUS_FUNC_GCD;}
 {TXT_LCM}               {return _CALCULUS_FUNC_LCM;}
+{CONST_PI}              {return _CALCULUS_CONST_PI;}
 {NUM_BIN}               {return _CALCULUS_NUM_BIN;}
 {NUM_OCT}               {return _CALCULUS_NUM_OCT;}
 {NUM_DIG}               {return _CALCULUS_NUM_DIG;}
@@ -62,6 +64,10 @@ int parse (unsigned int flags)
                 {
                         _d ("\n");
                         break;
+                } else if ((type & _CALCULUS_CONST_MASK) == type)
+                {
+                        _d ("\n");
+                        stackPush (&values, NULL, type);
                 } else if ((type & _CALCULUS_FUNC_MASK) == type)
                 {
                         _d ("\n");
