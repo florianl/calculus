@@ -48,13 +48,16 @@ int parse (unsigned int flags)
         stack_t         *operators = NULL;
         int             type = -1;
         int             inum = 0;
+        int             topOp = 0;
         double          dnum = 0.0;
         void            *mem;
         double          *ptr;
         _d("\n");
 
         values = calloc (1, sizeof(stack_t));
+        values->type = 0xBADC0DE;
         operators = calloc (1, sizeof(stack_t));
+        operators->type = 0xBADC0DE;
 
         yyin = stdin;
 
@@ -70,6 +73,13 @@ int parse (unsigned int flags)
                 {
                         _d ("\n");
                         stackPush (&values, NULL, type);
+                        topOp = stackTop(operators);
+                        if ((topOp & _CALCULUS_POINT_OP) == topOp)
+                        {
+                                _d ("0x%x\n", topOp);
+                                applyOperation(&values, topOp);
+                                stackPop(&operators);
+                        }
                 } else if ((type & _CALCULUS_FUNC_MASK) == type)
                 {
                         _d ("\n");
@@ -135,6 +145,14 @@ int parse (unsigned int flags)
                                 break;
                         }
                         stackPush (&values, mem, type);
+
+                        topOp = stackTop(operators);
+                        if ((topOp & _CALCULUS_POINT_OP) == topOp)
+                        {
+                                _d ("0x%x\n", topOp);
+                                applyOperation(&values, topOp);
+                                stackPop(&operators);
+                        }
                 } else {
                         _d ("\n");
                         fprintf (stderr, "Unknown input [%d]: %s\n", type, calculus_text);

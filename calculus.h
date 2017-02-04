@@ -6,9 +6,10 @@
 #define _CALCULUS_OP_MASK               0xFF01
 #define _CALCULUS_ADD                   0x0101
 #define _CALCULUS_SUB                   0x0201
-#define _CALCULUS_MUL                   0x0401
-#define _CALCULUS_DIV                   0x0801
-#define _CALCULUS_POW                   0x1001
+#define _CALCULUS_POINT_OP              0xF001
+#define _CALCULUS_MUL                   0x1001
+#define _CALCULUS_DIV                   0x2001
+#define _CALCULUS_POW                   0x4001
 
 #define _CALCULUS_ORG_MASK              0xFF02
 #define _CALCULUS_BRACE_OPEN            0x0102
@@ -58,3 +59,6 @@ unsigned int stackTop (stack_t *s);
 int bin2dez(char *t);
 int hex2dez(char *t);
 int uni2dez(char *t, int multi);
+
+
+int applyOperation(stack_t **s, int op);

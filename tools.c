@@ -5,12 +5,20 @@ int stackFree (stack_t **s)
         stack_t         *item = *s;
         stack_t         *next;
         int             progress = 0;
+        double          *ptr;
 
         while (item)
         {
                 next = item->next;
                 if (item->value != NULL)
+                {
+                        if(item->type == _CALCULUS_DOUBLE)
+                        {
+                                ptr = (item->value);
+                                _d("%f\n", (double) *ptr);
+                        }
                         free ((void*)item->value);
+                }
                 item->type = 0xBADC0DE;
                 free (item);
                 progress++;
@@ -28,6 +36,7 @@ unsigned int stackTop (stack_t *s)
 int stackPush (stack_t **s, void *value, unsigned int type)
 {
         stack_t         *item;
+        double          *ptr;
 
         item = (stack_t*) calloc (1, sizeof(stack_t));
         if (!item)
@@ -39,6 +48,12 @@ int stackPush (stack_t **s, void *value, unsigned int type)
         item->value = value;
         item->type = type;
         item->next = *s;
+
+        if(item->type == _CALCULUS_DOUBLE)
+        {
+                ptr = (item->value);
+                _d ("%f\n", (double) *ptr);
+        }
 
         *s = item;
 
@@ -127,4 +142,71 @@ int hex2dez(char *t)
         }
 
         return value;
+}
+
+int getValue(stack_t **s, double *ret)
+{
+        int             type = 0;
+        double          *ptr;
+
+        type = stackTop(*s);
+        _d ("0x%x\n", type);
+        if (type == _CALCULUS_DOUBLE)
+        {
+                ptr = (double *) stackPop(s);
+                *ret = *ptr;
+        }
+        else if (type == _CALCULUS_CONST_PI)
+        {
+                *ret = 3.141592;
+        } else
+        {
+                return -1;
+        }
+
+        return 0;
+}
+
+int applyOperation(stack_t **s, int op)
+{
+        double          x = 0.0;
+        double          y = 0.0;
+        double          z = 0.0;
+        int             status = 0;
+        void            *mem;
+        double          *ptr;
+
+        status = getValue(s, &y);
+        if (status == -1)
+                return -1;
+        _d ("y = %f\n", y);
+        status = getValue(s, &x);
+        if (status == -1)
+                return -1;
+        _d ("x = %f\n", x);
+
+        switch(op)
+        {
+                case _CALCULUS_ADD:
+                        z = x + y;
+                        break;
+                case _CALCULUS_SUB:
+                        z = x - y;
+                        break;
+                case _CALCULUS_MUL:
+                        z = x * y;
+                        break;
+                case _CALCULUS_DIV:
+                        z = x / y;
+                        break;
+                default:
+                        _d ("unknown operation 0x%x\n", op);
+                        return -1;
+        }
+        mem = (void*) calloc(1, sizeof(double));
+        ptr = (double*) mem;
+        *ptr = z;
+        stackPush (s, mem, _CALCULUS_DOUBLE);
+
+        return 0;
 }
