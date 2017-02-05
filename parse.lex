@@ -160,6 +160,14 @@ int parse (unsigned int flags)
                 }
         }
 
+        topOp = stackTop(operators);
+        while(topOp != 0xBADC0DE)
+        {
+                applyOperation(&values, topOp);
+                stackPop(&operators);
+                topOp = stackTop(operators);
+        }
+
         stackFree (&operators);
         stackFree (&values);
 
