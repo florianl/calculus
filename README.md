@@ -2,7 +2,19 @@ calculus
 ========
 
 This is `calculus`. `calculus` is some kind of playground to combine techniques
-and to implement various algorithms.
+and to implement various algorithms. There might be simpler solutions by using
+available implementations, but this project is about doing it by yourself.
+
+Usage
+-----
+
+    $ ./calculus
+
+Debug
+-----
+To get more output, compile it with 'DEBUG'
+
+    $ make CFLAGS=-DCALCULUS_DEBUG
 
 License
 -------
