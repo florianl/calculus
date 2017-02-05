@@ -14,7 +14,7 @@
 #define _CALCULUS_ORG_MASK              0xFF02
 #define _CALCULUS_BRACE_OPEN            0x0102
 #define _CALCULUS_BRACE_CLOSE           0x0202
-
+#define _CALCULUS_SEPERATOR             0x0402
 
 #define _CALCULUS_FUNC_MASK             0xFF04
 #define _CALCULUS_FUNC_GCD              0x0104
@@ -34,7 +34,7 @@
 #define _CALCULUS_CONST_MASK            0xFF20
 #define _CALCULUS_CONST_PI              0x0120
 
-#define CALCULUS_DEBUG
+//#define CALCULUS_DEBUG
 
 #ifdef CALCULUS_DEBUG
         #define _d(...)         {fprintf (stderr, "%s():%d\t", __func__, __LINE__); \

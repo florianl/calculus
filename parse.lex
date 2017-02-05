@@ -15,15 +15,15 @@ NUM_BIN         {SIGN_BIN}{DIGIT_BIN}+
 NUM_OCT         {SIGN_OCT}{DIGIT_OCT}+
 NUM_DIG         [1-9]{DIGIT_DIGIT}*
 NUM_HEX         {SIGN_HEX}{DIGIT_HEX}+
-WHITESPACE      [ \t]*
+WS              [ \t]*
 %option prefix="calculus_"
 %option warn
 %option noyywrap
 %option nounput
 %option noinput
 %%
-{TXT_GCD}                       {return _CALCULUS_FUNC_GCD;}
-{TXT_LCM}                       {return _CALCULUS_FUNC_LCM;}
+{TXT_GCD}{WS}("("|"["|"{")?     {return _CALCULUS_FUNC_GCD;}
+{TXT_LCM}{WS}("("|"["|"{")?     {return _CALCULUS_FUNC_LCM;}
 {CONST_PI}                      {return _CALCULUS_CONST_PI;}
 {NUM_DIG}(","|"."){NUM_DIG}?    {return _CALCULUS_NUM_REAL;}
 {NUM_BIN}                       {return _CALCULUS_NUM_BIN;}
@@ -37,9 +37,10 @@ WHITESPACE      [ \t]*
 ("*")?                          {return _CALCULUS_MUL;}
 ("/")?                          {return _CALCULUS_DIV;}
 ("^")?                          {return _CALCULUS_POW;}
-{WHITESPACE}            /*      Ignore whitespaces              */
-[\n]                    {return -1;}
-.                       /*      Eat up unrecognized patterns    */
+(";")?                          {return _CALCULUS_SEPERATOR;}
+{WS}                            /*      Ignore whitespaces              */
+[\n]                            {return -1;}
+.                               /*      Eat up unrecognized patterns    */
 %%
 
 int parse (unsigned int flags)
