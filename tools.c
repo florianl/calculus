@@ -1,5 +1,8 @@
 #include "calculus.h"
 
+/**
+ * Remove all items from the stack.
+ **/
 int stackFree (stack_t **s)
 {
         stack_t         *item = *s;
@@ -28,11 +31,17 @@ int stackFree (stack_t **s)
         return progress;
 }
 
+/**
+ * Get the type of the top item from the stack.
+ **/
 unsigned int stackTop (stack_t *s)
 {
         return s->type;
 }
 
+/**
+ * Save an item on the stack.
+ **/
 int stackPush (stack_t **s, void *value, unsigned int type)
 {
         stack_t         *item;
@@ -60,6 +69,9 @@ int stackPush (stack_t **s, void *value, unsigned int type)
         return 0;
 }
 
+/**
+ * Get the top item from the stack.
+ **/
 void *stackPop (stack_t **s)
 {
         stack_t         *item = *s;
@@ -70,6 +82,9 @@ void *stackPop (stack_t **s)
         return value;
 }
 
+/**
+ * Convert a binary-value from char to its integer correspondent.
+ **/
 int bin2dez(char *t)
 {
         int             value = 0;
@@ -92,7 +107,10 @@ int bin2dez(char *t)
         return value;
 }
 
-
+/**
+ * Convert a value from char to its integer correspondent.
+ * $multi represents the factor for the transformation.
+ **/
 int uni2dez(char *t, int multi)
 {
         int             value = 0;
@@ -112,6 +130,9 @@ int uni2dez(char *t, int multi)
         return value;
 }
 
+/**
+ * Convert a hex-value from char to its integer correspondent.
+ **/
 int hex2dez(char *t)
 {
         int             value = 0;
@@ -144,6 +165,9 @@ int hex2dez(char *t)
         return value;
 }
 
+/**
+ * Get the top value from the stack.
+ **/
 int getValue(stack_t **s, double *ret)
 {
         int             type = 0;
@@ -167,6 +191,9 @@ int getValue(stack_t **s, double *ret)
         return 0;
 }
 
+/**
+ * Apply an operation to a stack.
+ **/
 int applyOperation(stack_t **s, int op)
 {
         double          x = 0.0;

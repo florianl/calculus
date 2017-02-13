@@ -43,6 +43,9 @@
         #define _d(...)         {do { } while (0);}
 #endif
 
+/**
+ * Universal struct for different stacks.
+ **/
 typedef struct stack {
         void            *value;
         unsigned int    type;
