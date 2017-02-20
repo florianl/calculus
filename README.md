@@ -5,6 +5,8 @@ This is `calculus`. `calculus` is some kind of playground to combine techniques
 and to implement various algorithms. There might be simpler solutions by using
 available implementations, but this project is about doing it by yourself.
 
+Basically, `calculus` is just a simple calculator.
+
 Usage
 -----
 

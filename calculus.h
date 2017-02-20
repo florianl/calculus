@@ -35,7 +35,9 @@
 #define _CALCULUS_CONST_PI              0x0120
 
 //#define CALCULUS_DEBUG
-
+/**
+ *      This is a very simple way, to do debugging.
+ **/
 #ifdef CALCULUS_DEBUG
         #define _d(...)         {fprintf (stderr, "%s():%d\t", __func__, __LINE__); \
                                         fprintf (stderr, __VA_ARGS__);}
