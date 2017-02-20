@@ -192,6 +192,28 @@ int getValue(stack_t **s, double *ret)
 }
 
 /**
+ * GCD calculation based on euclidean algorithm
+ **/
+double euclideanGCD(double a, double b)
+{
+        if (a == 0)
+                return b;
+
+        while (b != 0)
+        {
+                if (a >b)
+                {
+                        a = a - b;
+                } else
+                {
+                        b = b - a;
+                }
+        }
+
+        return a;
+}
+
+/**
  * Apply an operation to a stack.
  **/
 int applyOperation(stack_t **s, int op)
@@ -225,6 +247,9 @@ int applyOperation(stack_t **s, int op)
                         break;
                 case _CALCULUS_DIV:
                         z = x / y;
+                        break;
+                case _CALCULUS_FUNC_GCD:
+                        z = euclideanGCD(x,y);
                         break;
                 default:
                         _d ("unknown operation 0x%x\n", op);
