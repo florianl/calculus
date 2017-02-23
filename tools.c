@@ -251,6 +251,10 @@ int applyOperation(stack_t **s, int op)
                 case _CALCULUS_FUNC_GCD:
                         z = euclideanGCD(x,y);
                         break;
+                case _CALCULUS_FUNC_LCM:
+                        z = euclideanGCD(x,y);
+                        z = (x*y)/z;
+                        break;
                 default:
                         _d ("unknown operation 0x%x\n", op);
                         return -1;
