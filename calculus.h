@@ -67,3 +67,4 @@ int uni2dez(char *t, int multi);
 
 
 int applyOperation(stack_t **s, int op);
+int getValue(stack_t **s, double *ret);

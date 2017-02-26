@@ -51,6 +51,7 @@ int parse (unsigned int flags)
         int             inum = 0;
         int             topOp = 0;
         double          dnum = 0.0;
+        int             noe = 0;
         void            *mem;
         double          *ptr;
         _d("\n");
@@ -168,9 +169,24 @@ int parse (unsigned int flags)
                 stackPop(&operators);
                 topOp = stackTop(operators);
         }
-
         stackFree (&operators);
+
+        topOp = stackTop(values);
+        noe = 0;
+        while(topOp != 0xBADC0DE)
+        {
+                noe++;
+                if (getValue(&values, &dnum) < 0)
+                        return -1;
+                topOp = stackTop(values);
+        }
         stackFree (&values);
 
+        if(noe != 1)
+        {
+                fprintf(stderr, "Invalid Number of elements.\n");
+        } else {
+                fprintf(stdout, "=> %f\n", dnum);
+        }
         return 0;
 }
