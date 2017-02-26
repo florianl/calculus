@@ -8,18 +8,22 @@ int stackFree (stack_t **s)
         stack_t         *item = *s;
         stack_t         *next;
         int             progress = 0;
+#ifdef CALCULUS_DEBUG
         double          *ptr;
+#endif
 
         while (item)
         {
                 next = item->next;
                 if (item->value != NULL)
                 {
+#ifdef CALCULUS_DEBUG
                         if(item->type == _CALCULUS_DOUBLE)
                         {
                                 ptr = (item->value);
                                 _d("%f\n", (double) *ptr);
                         }
+#endif
                         free ((void*)item->value);
                 }
                 item->type = 0xBADC0DE;
@@ -45,7 +49,9 @@ unsigned int stackTop (stack_t *s)
 int stackPush (stack_t **s, void *value, unsigned int type)
 {
         stack_t         *item;
+#ifdef CALCULUS_DEBUG
         double          *ptr;
+#endif
 
         item = (stack_t*) calloc (1, sizeof(stack_t));
         if (!item)
@@ -58,11 +64,13 @@ int stackPush (stack_t **s, void *value, unsigned int type)
         item->type = type;
         item->next = *s;
 
+#ifdef CALCULUS_DEBUG
         if(item->type == _CALCULUS_DOUBLE)
         {
                 ptr = (item->value);
                 _d ("%f\n", (double) *ptr);
         }
+#endif
 
         *s = item;
 
@@ -221,16 +229,13 @@ int applyOperation(stack_t **s, int op)
         double          x = 0.0;
         double          y = 0.0;
         double          z = 0.0;
-        int             status = 0;
         void            *mem;
         double          *ptr;
 
-        status = getValue(s, &y);
-        if (status == -1)
+        if (getValue(s, &y) < 0)
                 return -1;
         _d ("y = %f\n", y);
-        status = getValue(s, &x);
-        if (status == -1)
+        if (getValue(s, &x) < 0)
                 return -1;
         _d ("x = %f\n", x);
 
