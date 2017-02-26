@@ -200,6 +200,33 @@ int getValue(stack_t **s, double *ret)
 }
 
 /**
+ * Factorial calculation
+ **/
+double factorial(double a)
+{
+        double          b = 0;
+
+        if (a == 0)
+                return 1.0;
+
+        /**
+         * It works just for positive values
+         **/
+        if (a < 0)
+                return -1.0;
+
+        b = a;
+        while(a > 1)
+        {
+                a -= 1.0;
+                _d ("%f * %f\n", b,a);
+                b = b * a;
+        }
+
+        return b;
+}
+
+/**
  * GCD calculation based on euclidean algorithm
  **/
 double euclideanGCD(double a, double b)

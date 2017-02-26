@@ -26,6 +26,7 @@
 #define _CALCULUS_NUM_DIG               0x0408
 #define _CALCULUS_NUM_HEX               0x0808
 #define _CALCULUS_NUM_REAL              0x1008
+#define _CALCULUS_NUM_FACTORIAL         0x2008
 
 #define _CALCULUS_TYPE_MASK             0xFF10
 #define _CALCULUS_INT                   0x0110
@@ -65,6 +66,7 @@ int bin2dez(char *t);
 int hex2dez(char *t);
 int uni2dez(char *t, int multi);
 
+double factorial(double a);
 
 int applyOperation(stack_t **s, int op);
 int getValue(stack_t **s, double *ret);

@@ -13,7 +13,7 @@ SIGN_OCT        [oO]
 SIGN_HEX        [xX]
 NUM_BIN         {SIGN_BIN}{DIGIT_BIN}+
 NUM_OCT         {SIGN_OCT}{DIGIT_OCT}+
-NUM_DIG         [1-9]{DIGIT_DIGIT}*
+NUM_DIG         {DIGIT_DIGIT}*
 NUM_HEX         {SIGN_HEX}{DIGIT_HEX}+
 WS              [ \t]*
 %option prefix="calculus_"
@@ -38,6 +38,7 @@ WS              [ \t]*
 ("/")?                          {return _CALCULUS_DIV;}
 ("^")?                          {return _CALCULUS_POW;}
 (";")?                          {return _CALCULUS_SEPERATOR;}
+("!")?                          {return _CALCULUS_NUM_FACTORIAL;}
 {WS}                            /*      Ignore whitespaces              */
 [\n]                            {return -1;}
 .                               /*      Eat up unrecognized patterns    */
@@ -124,6 +125,13 @@ int parse (unsigned int flags)
                                         type = _CALCULUS_DOUBLE;
                                         dnum = strtod(calculus_text, NULL);
                                         _d ("%f\n", dnum);
+                                        break;
+                                case _CALCULUS_NUM_FACTORIAL:
+                                        _d ("factorial\n");
+                                        type = _CALCULUS_DOUBLE;
+                                        if (getValue(&values, &dnum) < 0)
+                                                return -1;
+                                        dnum = factorial(dnum);
                                         break;
                                 default:
                                         _d ("unkown\n");
