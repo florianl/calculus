@@ -66,7 +66,7 @@ int bin2dez(char *t);
 int hex2dez(char *t);
 int uni2dez(char *t, int multi);
 
-double factorial(double a);
+int factorial(double a, double *f);
 
 int applyOperation(stack_t **s, int op);
 int getValue(stack_t **s, double *ret);

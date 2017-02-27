@@ -202,18 +202,24 @@ int getValue(stack_t **s, double *ret)
 /**
  * Factorial calculation
  **/
-double factorial(double a)
+int factorial(double a, double *f)
 {
         double          b = 0;
 
         if (a == 0)
-                return 1.0;
+        {
+                *f = a;
+                return 0;
+        }
 
         /**
-         * It works just for positive values
+         * It works just for positive integers
          **/
-        if (a < 0)
-                return -1.0;
+        if ((a - ((int) a)  != 0.0) || (a < 0))
+        {
+                _d ("%f is not a positive integer.\n", a);
+                return -1;
+        }
 
         b = a;
         while(a > 1)
@@ -222,17 +228,21 @@ double factorial(double a)
                 _d ("%f * %f\n", b,a);
                 b = b * a;
         }
+        *f = b;
 
-        return b;
+        return 0;
 }
 
 /**
  * GCD calculation based on euclidean algorithm
  **/
-double euclideanGCD(double a, double b)
+int euclideanGCD(double a, double b, double *f)
 {
         if (a == 0)
-                return b;
+        {
+                *f = b;
+                return 0;
+        }
 
         while (b != 0)
         {
@@ -244,8 +254,9 @@ double euclideanGCD(double a, double b)
                         b = b - a;
                 }
         }
+        *f = a;
 
-        return a;
+        return 0;
 }
 
 /**
@@ -281,10 +292,10 @@ int applyOperation(stack_t **s, int op)
                         z = x / y;
                         break;
                 case _CALCULUS_FUNC_GCD:
-                        z = euclideanGCD(x,y);
+                        euclideanGCD(x,y, &z);
                         break;
                 case _CALCULUS_FUNC_LCM:
-                        z = euclideanGCD(x,y);
+                        euclideanGCD(x,y, &z);
                         z = (x*y)/z;
                         break;
                 default:

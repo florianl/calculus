@@ -131,7 +131,7 @@ int parse (unsigned int flags)
                                         type = _CALCULUS_DOUBLE;
                                         if (getValue(&values, &dnum) < 0)
                                                 return -1;
-                                        dnum = factorial(dnum);
+                                        factorial(dnum, &dnum)
                                         break;
                                 default:
                                         _d ("unkown\n");
