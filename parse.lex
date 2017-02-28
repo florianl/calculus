@@ -94,8 +94,18 @@ int parse (unsigned int flags)
                 } else if ((type & _CALCULUS_ORG_MASK) == type)
                 {
                         if (type == _CALCULUS_BRACE_OPEN)
+                        {
+                                _d ("\n");
                                 stackPush (&operators, NULL, type);
-                        _d ("\n");
+                        } else if (type == _CALCULUS_BRACE_CLOSE)
+                        {
+                                _d ("\n");
+                                topOp = stackTop(operators);
+                                applyOperation(&values, topOp);
+                                stackPop(&operators);
+                        } else {
+                                _d ("\n");
+                        }
                 } else if ((type & _CALCULUS_NUM_MASK) == type)
                 {
                         switch (type)
