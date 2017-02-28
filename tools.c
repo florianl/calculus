@@ -309,3 +309,16 @@ int applyOperation(stack_t **s, int op)
 
         return 0;
 }
+
+/***
+ * An error occured. Now it's time to clean up and exit.
+ *
+ * todo: evaluate $err and give feedback to the user
+ **/
+int cleanLeave(int err, stack_t **s, stack_t **t)
+{
+        stackFree (s);
+        stackFree (t);
+
+        exit(EXIT_FAILURE);
+}
