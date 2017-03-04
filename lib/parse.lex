@@ -1,5 +1,5 @@
 %{
-        #include "calculus.h"
+        #include "parse.h"
 %}
 TXT_GCD         [Gg][Cc][Dd]
 TXT_LCM         [Ll][Cc][Mm]

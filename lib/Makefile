@@ -1,14 +1,13 @@
-PROG = calculus
+PROG = libcalculus.so
 CC = gcc
 FLEX = flex
-CFLAGS += -g -Wall -DVERSION='$(date "+%Y%m%d")' -std=c99
-LDFLAGS += -lfl
+CFLAGS += -g -pedantic -Wall -DVERSION='$(date "+%Y%m%d")' -std=c99 -fPIC
+LDFLAGS += -lfl -shared
 FLEXFLAGS += -Cfr
 
 .PHONY = all
 
-CFILES = 	calculus.c \
-		tools.c
+CFILES = 	tools.c
 
 LFILES =	parse.lex
 
@@ -38,4 +37,4 @@ flexclean:
 	done
 
 clean: flexclean
-	rm -f *.o $(PROG)
+	rm -f *.o *.so

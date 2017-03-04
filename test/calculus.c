@@ -1,4 +1,5 @@
-#include "calculus.h"
+#include <stdlib.h>
+#include <calculus.h>
 
 int main (int argc, char **argv)
 {
