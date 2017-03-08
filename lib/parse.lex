@@ -36,7 +36,7 @@ WS              [ \t]*
 ("-")?                          {return _CALCULUS_SUB;}
 ("*")?                          {return _CALCULUS_MUL;}
 ("/")?                          {return _CALCULUS_DIV;}
-("^")?                          {return _CALCULUS_POW;}
+("^"|"*"{WS}"*")?               {return _CALCULUS_POW;}
 (";")?                          {return _CALCULUS_SEPERATOR;}
 ("!")?                          {return _CALCULUS_NUM_FACTORIAL;}
 {WS}                            /*      Ignore whitespaces              */
