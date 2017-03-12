@@ -260,6 +260,42 @@ int euclideanGCD(double a, double b, double *f)
 }
 
 /**
+ * Simple implementation of an power of algorithm
+ **/
+int simplePower(double a, double b, double *f)
+{
+        int             i = 0;
+
+        /**
+         * It works just for positive integers
+         **/
+        if ((b - ((int) b)  != 0.0) || (b < 0))
+        {
+                _d ("%f is not a positive integer.\n", b);
+                return -1;
+        }
+
+        if (b == 0.0)
+        {
+                *f = 1.0;
+                return 0;
+        }
+        else if (b == 1.0)
+        {
+                *f = a;
+                return 0;
+        }
+
+        *f = a;
+        for (i=1; i < (int) b; i++)
+        {
+                *f *= a;
+        }
+
+        return 0;
+}
+
+/**
  * Apply an operation to a stack.
  **/
 int applyOperation(stack_t **s, int op)
@@ -290,6 +326,9 @@ int applyOperation(stack_t **s, int op)
                         break;
                 case _CALCULUS_DIV:
                         z = x / y;
+                        break;
+                case _CALCULUS_POW:
+                        simplePower(x,y, &z);
                         break;
                 case _CALCULUS_FUNC_GCD:
                         euclideanGCD(x,y, &z);
