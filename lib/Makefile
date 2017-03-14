@@ -1,7 +1,8 @@
 PROG = libcalculus.so
 CC = gcc
 FLEX = flex
-CFLAGS += -g -pedantic -Wall -DVERSION='$(date "+%Y%m%d")' -std=c99 -fPIC
+GIT_TAG := $(shell git describe --abbrev=6 --dirty --always --tags)
+override CFLAGS += -DVERSION=\"$(GIT_TAG)\" -std=c99 -fPIC
 LDFLAGS += -lfl -shared
 FLEXFLAGS += -Cfr
 
@@ -13,6 +14,9 @@ LFILES =	parse.lex
 
 all: compile
 	$(CC) $(CFILES:.c=.o) $(LFILES:.lex=.o) $(LDFLAGS) -o $(PROG)
+
+debug: CFLAGS += -g -pedantic -Wall -DCALCULUS_DEBUG
+debug: all
 
 compile:
 	for CFILE in $(CFILES); do		\
