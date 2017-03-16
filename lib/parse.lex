@@ -44,7 +44,7 @@ WS              [ \t]*
 .                               /*      Eat up unrecognized patterns    */
 %%
 
-int parse (unsigned int flags)
+int parse (unsigned int flags, const char *pattern)
 {
         stack_t         *values = NULL;
         stack_t         *operators = NULL;
@@ -55,6 +55,8 @@ int parse (unsigned int flags)
         int             noe = 0;
         void            *mem;
         double          *ptr;
+        char            *s = NULL;
+        size_t          len = strlen(pattern);
         _d("\n");
 
         values = calloc (1, sizeof(stack_t));
@@ -62,7 +64,13 @@ int parse (unsigned int flags)
         operators = calloc (1, sizeof(stack_t));
         operators->type = 0xBADC0DE;
 
-        yyin = stdin;
+        s = (char*) calloc(len+2, sizeof(char));
+        if (!s)
+                return -1;
+        s = strncpy(s, pattern, len);
+        s[len] = '\n';
+
+        yy_switch_to_buffer(yy_scan_string(s));
 
         while (1)
         {
@@ -181,6 +189,8 @@ int parse (unsigned int flags)
                 }
         }
 
+        yy_delete_buffer(YY_CURRENT_BUFFER);
+
         topOp = stackTop(operators);
         while(topOp != 0xBADC0DE)
         {
@@ -200,6 +210,8 @@ int parse (unsigned int flags)
                 topOp = stackTop(values);
         }
         stackFree (&values);
+
+        free(s);
 
         if(noe != 1)
         {
