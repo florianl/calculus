@@ -44,7 +44,7 @@ WS              [ \t]*
 .                               /*      Eat up unrecognized patterns    */
 %%
 
-int parse (unsigned int flags, const char *pattern)
+int parse (unsigned int flags, double *result, const char *pattern)
 {
         stack_t         *values = NULL;
         stack_t         *operators = NULL;
@@ -216,8 +216,9 @@ int parse (unsigned int flags, const char *pattern)
         if(noe != 1)
         {
                 fprintf(stderr, "Invalid Number of elements.\n");
+                return -1;
         } else {
-                fprintf(stdout, "=> %f\n", dnum);
+                *result = dnum;
         }
         return 0;
 }

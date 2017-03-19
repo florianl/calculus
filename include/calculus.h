@@ -1,1 +1,1 @@
-int parse (unsigned int flags, const char *pattern);
+int parse (unsigned int flags, double *result, const char *pattern);
