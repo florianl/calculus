@@ -69,3 +69,4 @@ int factorial(double a, double *f);
 int applyOperation(stack_t **s, int op);
 int getValue(stack_t **s, double *ret);
 int cleanLeave(int err, stack_t **s, stack_t **t);
+int handleBrackets(stack_t **o, stack_t **v);

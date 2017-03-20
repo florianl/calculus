@@ -31,6 +31,15 @@ int main (int argc, char **argv)
         {
                 fprintf(stdout, "%f\n", result);
         }
+        if (parse (flags, &result, "3*3+3*(2+2+2)") == 0)
+        {
+                fprintf(stdout, "%f\n", result);
+        }
+        if (parse (flags, &result, "3*3+3(2+2+2)") == 0)
+        {
+                fprintf(stdout, "%f\n", result);
+        }
+
 
         return EXIT_SUCCESS;
 }

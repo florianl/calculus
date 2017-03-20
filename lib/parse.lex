@@ -108,9 +108,7 @@ int parse (unsigned int flags, double *result, const char *pattern)
                         } else if (type == _CALCULUS_BRACE_CLOSE)
                         {
                                 _d ("\n");
-                                topOp = stackTop(operators);
-                                applyOperation(&values, topOp);
-                                stackPop(&operators);
+                                handleBrackets(&operators, &values);
                         } else {
                                 _d ("\n");
                         }

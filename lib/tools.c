@@ -44,6 +44,24 @@ unsigned int stackTop (stack_t *s)
 }
 
 /**
+ * Count the number of elements of the stack
+ **/
+int stackCount (stack_t **s)
+{
+        stack_t         *item = *s;
+        stack_t         *next;
+        int             noe = 0;
+
+        while (item)
+        {
+                next = item->next;
+                noe++;
+                item = next;
+        }
+        return noe;
+}
+
+/**
  * Save an item on the stack.
  **/
 int stackPush (stack_t **s, void *value, unsigned int type)
@@ -360,4 +378,59 @@ int cleanLeave(int err, stack_t **s, stack_t **t)
         stackFree (t);
 
         exit(EXIT_FAILURE);
+}
+
+/**
+ * Compute the value within the brackets
+ **/
+int handleBrackets(stack_t **o, stack_t **v)
+{
+        int             topOp = 0;
+        int             noo = 0;
+        int             nov = 0;
+
+        _d ("\n");
+        topOp = stackTop(*o);
+        while(topOp != 0xBADC0DE)
+        {
+                if (topOp == _CALCULUS_BRACE_OPEN)
+                {
+                        _d ("\n");
+                        stackPop(o);
+                        /*      Guess what is in front of the bracket   */
+                        noo = stackCount(o);
+                        nov = stackCount(v);
+                        if ( nov == (noo + 2))
+                        {
+                                /**
+                                 * In this case, it is assumed that the multi-
+                                 * plication before the parenthesis has been
+                                 * omitted
+                                 **/
+                                applyOperation(v, _CALCULUS_MUL);
+                        } else {
+                                /*      This should never happen        */
+                                _d ("\n");
+                                return -1;
+                        }
+                        break;
+                } else if ((topOp & _CALCULUS_FUNC_MASK) == topOp)
+                {
+                        _d ("\n");
+                        applyOperation(v, topOp);
+                        stackPop(o);
+                        break;
+                } else if (topOp == 0xBADC0DE)
+                {
+                        /*      This should never happen        */
+                        _d ("\n");
+                        return -1;
+                } else {
+                        _d ("\n");
+                        applyOperation(v, topOp);
+                        stackPop(o);
+                        topOp = stackTop(*o);
+                }
+        }
+        return 0;
 }
