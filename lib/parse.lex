@@ -10,7 +10,7 @@ DIGIT_DIGIT     [0-9]
 DIGIT_HEX       [0-9a-fA-F]
 SIGN_BIN        [bB]
 SIGN_OCT        [oO]
-SIGN_HEX        [xX]
+SIGN_HEX        0?[xX]
 NUM_BIN         {SIGN_BIN}{DIGIT_BIN}+
 NUM_OCT         {SIGN_OCT}{DIGIT_OCT}+
 NUM_DIG         {DIGIT_DIGIT}*
