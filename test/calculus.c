@@ -6,40 +6,82 @@ int main (int argc, char **argv)
 {
         unsigned int            flags = 0;
         double                  result = 0.0;
+        char                    input[256];
 
-        if (parse (flags, &result, "1 + 2") == 0)
+        sprintf(input, "1 + 2");
+        if (parse (flags, &result, input) == 0)
         {
-                fprintf(stdout, "%f\n", result);
+                fprintf(stdout, "%s = %f\n", input, result);
         }
-        if (parse (flags, &result, "1 * 2") == 0)
+        sprintf(input, "1 * 2");
+        if (parse (flags, &result, input) == 0)
         {
-                fprintf(stdout, "%f\n", result);
+                fprintf(stdout, "%s = %f\n", input, result);
         }
-        if (parse (flags, &result, "1 / 2") == 0)
+        sprintf(input, "1 / 2");
+        if (parse (flags, &result, input) == 0)
         {
-                fprintf(stdout, "%f\n", result);
+                fprintf(stdout, "%s = %f\n", input, result);
         }
-        if (parse (flags, &result, "2 ** 2") == 0)
+        sprintf(input, "2 ** 2");
+        if (parse (flags, &result, input) == 0)
         {
-                fprintf(stdout, "%f\n", result);
+                fprintf(stdout, "%s = %f\n", input, result);
         }
-        if (parse (flags, &result, "gcd(7 21)") == 0)
+        sprintf(input, "gcd(7 21)");
+        if (parse (flags, &result, input) == 0)
         {
-                fprintf(stdout, "%f\n", result);
+                fprintf(stdout, "%s = %f\n", input, result);
         }
-        if (parse (flags, &result, "lcm(7 22)") == 0)
+        sprintf(input, "lcm(7 22)");
+        if (parse (flags, &result, input) == 0)
         {
-                fprintf(stdout, "%f\n", result);
+                fprintf(stdout, "%s = %f\n", input, result);
         }
-        if (parse (flags, &result, "3*3+3*(2+2+2)") == 0)
+        sprintf(input, "3*3+3*(2+2+2)");
+        if (parse (flags, &result, input) == 0)
         {
-                fprintf(stdout, "%f\n", result);
+                fprintf(stdout, "%s = %f\n", input, result);
         }
-        if (parse (flags, &result, "3*3+3(2+2+2)") == 0)
+        sprintf(input, "3*3+3(2+2+2)");
+        if (parse (flags, &result, input) == 0)
         {
-                fprintf(stdout, "%f\n", result);
+                fprintf(stdout, "%s = %f\n", input, result);
         }
-
-
+        sprintf(input, "0xF * 0xF");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
+        sprintf(input, "0xF + 0xF");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
+        sprintf(input, "0xF ** 0xF");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
+        sprintf(input, "0xF * b110");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
+        sprintf(input, "0xF");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
+        sprintf(input, "xFFFF");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
+        sprintf(input, "b110");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
         return EXIT_SUCCESS;
 }
