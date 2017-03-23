@@ -83,5 +83,20 @@ int main (int argc, char **argv)
         {
                 fprintf(stdout, "%s = %f\n", input, result);
         }
+        sprintf(input, "b110 * b111");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
+        sprintf(input, "b110 ** b111");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
+        sprintf(input, "0xFF / b100");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
         return EXIT_SUCCESS;
 }
