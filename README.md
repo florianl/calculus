@@ -5,7 +5,30 @@ This is `calculus`. `calculus` is some kind of playground to combine techniques
 and to implement various algorithms. There might be simpler solutions by using
 available implementations, but this project is about doing it by yourself.
 
-Basically, `calculus` is a library providing just a simple calculator.
+Basically, `calculus` is a library providing just functions for a simple calculator.
+
+But there is a neat feature. You can mix various number systems.
+
+Supported Number Systems
+------------------------
+
+* Decimal, e.g. `1`, `12`, `42`, `128`
+* Binary, e.g. `b1`, `b1100`, `b101010`, `b10000000`
+* Octal, e.g. `o1`, `o14`, `o52`, `o200`
+* Hexadecimal, e.g. `x1`, `xC`, `x2A`, `x80`
+
+For examples take a look at [test/calculus.c](../master/test/calculus.c).
+
+Implemented Mathematical Operations
+-----------------------------------
+
+* Addition `+`
+* Subtraction `-`
+* Multiplication `*`
+* Division `/`
+* Exponentiation `**`
+* Least Common Multiple `lcm()`
+* Greatest Common Divisor `gcd()`
 
 License
 -------
