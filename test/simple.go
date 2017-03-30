@@ -5,7 +5,6 @@ package main
 #cgo linux LDFLAGS: -lcalculus
 #cgo linux  CFLAGS: -I../include
 #include <calculus.h>
-#include <stdlib.h>
 */
 import "C"
 import "fmt"
