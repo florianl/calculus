@@ -1,6 +1,8 @@
 Tests in C
 ----------
 
+[test/calculus.c](../master/test/calculus.c) contains a number of tests.
+
         $ make
         $ export LD_LIBRARY_PATH=../lib:$LD_LIBRARY_PATH
         $ ./calculus
@@ -13,5 +15,12 @@ Tests in C
 Tests in go
 -----------
 
+[test/simple.go](../master/test/simple.go) can be used as "live" calculator.
+
         $ export LD_LIBRARY_PATH=../lib:$LD_LIBRARY_PATH
-        $ go run simple.go
+        $ go run simple.go 123 + 345
+          123 + 345 = 468.000000
+        $ go run simple.go 123*9
+          123*9 = 1107.000000
+        $ go run simple.go xFF + b00001
+          xFF + b00001 = 256.000000
