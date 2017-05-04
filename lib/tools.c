@@ -314,6 +314,42 @@ int simplePower(double a, double b, double *f)
 }
 
 /**
+ * Calculate the fibonacci number to a given number
+ */
+double fibonacci(double n)
+{
+    if (n == 1.0)
+    {
+        return 1.0;
+    } else if (n == 2.0)
+    {
+        return 1.0;
+    } else if (n == 0.0)
+    {
+        return 0;
+    }
+
+    return fibonacci(n -1.0) + fibonacci(n -2.0);
+}
+
+/**
+ *  Return true, if mathematical operation only needs one operand
+ */
+int oneOperand(int op)
+{
+    switch(op)
+    {
+
+        case _CALCULUS_FUNC_FIB:
+            return 1;
+        default:
+            return 0;
+    }
+
+    return 0;
+}
+
+/**
  * Apply an operation to a stack.
  **/
 int applyOperation(stack_t **s, int op)
@@ -327,9 +363,13 @@ int applyOperation(stack_t **s, int op)
         if (getValue(s, &y) < 0)
                 return -1;
         _d ("y = %f\n", y);
-        if (getValue(s, &x) < 0)
-                return -1;
-        _d ("x = %f\n", x);
+
+        if (!oneOperand(op))
+        {
+            if (getValue(s, &x) < 0)
+                    return -1;
+            _d ("x = %f\n", x);
+        }
 
         switch(op)
         {
@@ -354,6 +394,9 @@ int applyOperation(stack_t **s, int op)
                 case _CALCULUS_FUNC_LCM:
                         euclideanGCD(x,y, &z);
                         z = (x*y)/z;
+                        break;
+                case _CALCULUS_FUNC_FIB:
+                        z = fibonacci(y);
                         break;
                 default:
                         _d ("unknown operation 0x%x\n", op);

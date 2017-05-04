@@ -38,6 +38,11 @@ int main (int argc, char **argv)
         {
                 fprintf(stdout, "%s = %f\n", input, result);
         }
+        sprintf(input, "fib(7)");
+        if (parse (flags, &result, input) == 0)
+        {
+                fprintf(stdout, "%s = %f\n", input, result);
+        }
         sprintf(input, "3*3+3*(2+2+2)");
         if (parse (flags, &result, input) == 0)
         {

@@ -3,6 +3,7 @@
 %}
 TXT_GCD         [Gg][Cc][Dd]
 TXT_LCM         [Ll][Cc][Mm]
+TXT_FIB         [Ff][Ii][Bb]
 CONST_PI        [Pp][Ii]
 DIGIT_BIN       [01]
 DIGIT_OCT       [0-7]
@@ -24,6 +25,7 @@ WS              [ \t]*
 %%
 {TXT_GCD}{WS}("("|"["|"{")?     {return _CALCULUS_FUNC_GCD;}
 {TXT_LCM}{WS}("("|"["|"{")?     {return _CALCULUS_FUNC_LCM;}
+{TXT_FIB}{WS}("("|"["|"{")?     {return _CALCULUS_FUNC_FIB;}
 {CONST_PI}                      {return _CALCULUS_CONST_PI;}
 {NUM_DIG}(","|"."){NUM_DIG}?    {return _CALCULUS_NUM_REAL;}
 {NUM_BIN}                       {return _CALCULUS_NUM_BIN;}

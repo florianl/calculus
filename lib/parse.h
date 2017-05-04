@@ -19,6 +19,7 @@
 #define _CALCULUS_FUNC_MASK             0xFF04
 #define _CALCULUS_FUNC_GCD              0x0104
 #define _CALCULUS_FUNC_LCM              0x0204
+#define _CALCULUS_FUNC_FIB              0x0404
 
 #define _CALCULUS_NUM_MASK              0xFF08
 #define _CALCULUS_NUM_BIN               0x0108
