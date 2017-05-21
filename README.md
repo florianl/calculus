@@ -29,6 +29,7 @@ Implemented Mathematical Operations
 * Exponentiation `**`
 * Least Common Multiple `lcm()`
 * Greatest Common Divisor `gcd()`
+* Fibonacci Number `fib()`
 
 License
 -------
