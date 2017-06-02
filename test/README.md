@@ -1,7 +1,7 @@
 Tests in C
 ----------
 
-[test/calculus.c](../calculus.c) contains a number of tests.
+[test/calculus.c](test/calculus.c) contains a number of tests.
 
         $ make
         $ export LD_LIBRARY_PATH=../lib:$LD_LIBRARY_PATH
@@ -15,7 +15,7 @@ Tests in C
 Tests in go
 -----------
 
-[test/simple.go](../simple.go) can be used as "live" calculator.
+[test/simple.go](test/simple.go) can be used as "live" calculator.
 
         $ export LD_LIBRARY_PATH=../lib:$LD_LIBRARY_PATH
         $ go run simple.go 123 + 345
@@ -25,7 +25,7 @@ Tests in go
         $ go run simple.go xFF + b00001
           xFF + b00001 = 256.000000
 
-Or give [test/live.go](../live.go) a try:
+Or give [test/live.go](test/live.go) a try:
 
         $ export LD_LIBRARY_PATH=../lib:$LD_LIBRARY_PATH
         $ go run live.go

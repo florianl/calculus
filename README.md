@@ -17,7 +17,7 @@ Supported Number Systems
 * Octal, e.g. `o1`, `o14`, `o52`, `o200`
 * Hexadecimal, e.g. `x1`, `xC`, `x2A`, `x80`
 
-For examples take a look at [test/calculus.c](../master/test/calculus.c).
+For examples take a look at [test/calculus.c](test/calculus.c).
 
 Implemented Mathematical Operations
 -----------------------------------
